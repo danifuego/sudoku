@@ -1,4 +1,4 @@
-package app;
+package Paquete;
 
 import java.util.ArrayList;
 
@@ -6,11 +6,9 @@ public class Solucionador {
 	
 	/// METODOS
 	
-	/**
-	 * Método que controla las operaciones necesarias para solucionar el sudoku
-	 * @param tablero Tablero que contiene las casillas del sudoku
-	 * @return boolean. True = Sudoku solucionado. False = Sudoku sin solucionar
-	 */
+	
+	 // Metodo que controla las operaciones necesarias para solucionar el sudoku
+	 
 	public Tablero solucionarSudoku(Tablero tablero) {
 		
 		ArrayList<Casilla> editables = this.extraerCasillasEditables(tablero.getCasillas());
@@ -18,8 +16,9 @@ public class Solucionador {
 		
 		while (i < editables.size()) {
 			
-			// Control de salida. Si el primer resultado es igual a 0 y su valor superior al máximo permitido por el sudoku, 
+			// Control de salida. Si el primer resultado es igual a 0 y su valor superior al maximo permitido por el sudoku, 
 			// error al solucionar el sudoku
+			
 			Casilla actual = editables.get(i);
 			if (actual.getValor() > 9) {
 				tablero.reestablecerCasillaPorPosicion(actual.getPosX(), actual.getPosY());
@@ -42,7 +41,7 @@ public class Solucionador {
 				ArrayList<ArrayList<Casilla>> listasParaValidar = this.extraerCasillasComparables(tablero, actual);
 				
 				// Validar si listas cumplen reglas de Sudoku (salvo valor sin rellenar)
-				if (validacionFCS(listasParaValidar)) {
+				if (ComprobarFilaColumnaSector(listasParaValidar)) {
 					tablero.editarCasilla(actual);
 					i++;
 				}
@@ -69,11 +68,9 @@ public class Solucionador {
 		return tablero;
 	}
 	
-	/**
-	 * Devuelve un array con todas las casillas en las que la propiedad editable es verdadera
-	 * @param casillas Matriz de casillas
-	 * @return Array con las casillas editables
-	 */
+	
+	 // Devuelve un array con todas las casillas en las que la propiedad editable es verdadera
+	
 	private ArrayList<Casilla> extraerCasillasEditables(Casilla[][] casillas) {
 		ArrayList<Casilla> editables = new ArrayList<Casilla>();
 		
@@ -88,12 +85,11 @@ public class Solucionador {
 		return editables;
 	}
 	
-	/**
-	 * Extrae las casillas que contengan la misma fila, columna o sector que la casilla actual
-	 * @param tablero Tablero de 9x9
-	 * @param actual Casilla actual
-	 * @return ArrayList que contiene tres arrayList de casillas. Fila, columna y sector
-	 */
+	
+	 //Recoge las casillas que contengan la misma fila, columna o sector que la casilla actual
+	
+	//ArrayList que contiene tres arrayList de casillas. Fila, columna y sector
+	 
 	private ArrayList<ArrayList<Casilla>> extraerCasillasComparables(Tablero tablero, Casilla actual) {
 		
 		ArrayList<Casilla> fila 	= new ArrayList<Casilla>();
@@ -124,13 +120,10 @@ public class Solucionador {
 		return resultado;
 	}
 	
-	/**
-	 * Valida la fila, columna y sector. Si no se repite ningun numero (sin contar el 0)
-	 * es una lista válida
-	 * @param listas ArrayList de arraylist de casillas
-	 * @return True si validacion correcta. False en caso contrario
-	 */
-	private boolean validacionFCS(ArrayList<ArrayList<Casilla>> listas) {
+	
+	 //Valida la fila, columna y sector. Si no se repite ningun numero (sin contar el 0)
+		
+	private boolean ComprobarFilaColumnaSector(ArrayList<ArrayList<Casilla>> listas) {
 		
 		for (ArrayList<Casilla> lista : listas) {
 			

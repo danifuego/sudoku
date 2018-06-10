@@ -1,4 +1,4 @@
-package app;
+package Paquete;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,7 +12,7 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 
 
- // Clase para trabajar con distintos ficheros de texto
+ // Clase para trabajar con los ficheros de texto
 
 public class ManejadorFicheros {
 

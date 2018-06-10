@@ -1,4 +1,4 @@
-package app;
+package Paquete;
 
 // contiene la estructura del tablero de Sudoku 
 
@@ -26,14 +26,7 @@ public class Tablero {
 		return this.casillas;
 	}
 	
-	/**
-	 * Inicializa el tablero estableciendo por defecto los valores:
-	 * Valor 	= 0
-	 * PosX 	= i
-	 * PosY 	= j
-	 * Editable = true
-	 * Sector 	= Segun posicion
-	 */
+	
 	public void inicializarTablero() {
 		
 		for (int i = 0; i < this.casillas.length; i++) {
@@ -57,20 +50,17 @@ public class Tablero {
 		this.casillas[casilla.getPosX()][casilla.getPosY()] = casilla;
 	}
 	
-	/**
-	 * Reestablece el valor de la casilla segun su posicion
-	 * @param x Posicion horizontal
-	 * @param y Posicion vertical
-	 */
+	
+	 // Reestablece el valor de la casilla segun su posicion
+	 
 	public void reestablecerCasillaPorPosicion(int x, int y) {
 		this.casillas[x][y].setValor(0);
 	}
 	
-	/**
-	 * Inserta los valores de la matriz en la misma casilla respecto a su posicion
-	 * Ha tenido que inicializarse la matriz de casillas previamente
 	
-	 */
+	 //Inserta los valores de la matriz en la misma casilla respecto a su posicion
+	
+	
 	public void insertarValores(int[][] matriz) {
 		
 		for (int i = 0; i < matriz.length; i++) {

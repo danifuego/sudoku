@@ -1,7 +1,7 @@
-package app;
+package Paquete;
 
 //clase principal que inicializa la interfaz
-public class App {
+public class Main {
 
 	public static void main(String[] args) {
 		

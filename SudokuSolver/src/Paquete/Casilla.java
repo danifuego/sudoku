@@ -1,10 +1,8 @@
-package app;
+package Paquete;
 
-/**
- * Clase que contiene toda la información relevante de una casilla de Sudoku 9x9
- * @author Inazio
- *
- */
+
+ 
+ //Esta clase contiene los metodos para poder trabajar con las casillas del tablero
 public class Casilla {
 
 	/// PROPIEDADES
@@ -15,19 +13,10 @@ public class Casilla {
 	private boolean editable;
 	
 	/// CONSTRUCTORES
-	/**
-	 * Inicializa una casilla vacía
-	 */
+	
 	public Casilla() {}
 	
-	/**
-	 * 
-	 * @param valor
-	 * @param posX
-	 * @param posY
-	 * @param sector
-	 * @param editable
-	 */
+	
 	public Casilla(int valor, int posX, int posY, Sector sector, boolean editable) {
 		
 		this.valor 		= valor;
@@ -39,9 +28,9 @@ public class Casilla {
 	
 	/// METODOS
 	
-	/**
-	 * Establece el sector dependiendo de la posición X e Y de la casilla
-	 */
+	
+	 //Asigna la seccion a la casilla dependiendo del eje Y y el eje X
+	 
 	public void establecerSectorSegunPosicion() {
 		switch(posX) {
 		
@@ -117,82 +106,72 @@ public class Casilla {
 		}
 	}
 
-	/**
-	 * Devuelve el valor de la casilla
-	 * @return Entero entre 0 y 9
-	 */
+	
+	 // Devuelve el valor de la casilla
+	
 	public int getValor() {
 		return valor;
 	}
 
-	/**
-	 * Establece el valor de la casilla
-	 * @param valor Entero entre 0 y 9
-	 */
+	
+	 // Establece el valor de la casilla
+	
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
 
-	/**
-	 * Devuelve la posición horizontal
-	 * @return Entero entre 0 y 8
-	 */
+	// Devuelve la posicion horizontal
+	
 	public int getPosX() {
 		return posX;
 	}
 
-	/**
-	 * Establece la posición horizontal
-	 * @param posX Entero entre 0 y 8
-	 */
+	
+	 //Establece la posicion horizontal
+	
 	public void setPosX(int posX) {
 		this.posX = posX;
 	}
 
-	/**
-	 * Devuelve la posición vertical
-	 * @return Entero entre 0 y 8
-	 */
+	
+	 //Devuelve la posicion vertical
+	 
+	 
 	public int getPosY() {
 		return posY;
 	}
 
-	/**
-	 * Establece la posición vertical
-	 * @param posY Entero entre 0 y 8
-	 */
-	public void setPosY(int posY) {
+	
+	 //Establece la posicion vertical
+	 	public void setPosY(int posY) {
 		this.posY = posY;
 	}
 
-	/**
-	 * Devuelve el sector de la casilla
-	 * @return Sector preestablecido en Enum Sector
-	 */
+
+	 // Devuelve el sector de la casilla
+	
 	public Sector getSector() {
 		return sector;
 	}
 
-	/**
-	 * Establece el sector de la casilla
-	 * @param sector Propiedad del enum Sector
-	 */
+	
+	 //Establece el sector de la casilla
+	
 	public void setSector(Sector sector) {
 		this.sector = sector;
 	}
 
-	/**
-	 * Devuelve si la casilla tiene un valor fijo o no
-	 * @return True -> Valor fijo. False -> Valor modificable
-	 */
+	
+	 //Devuelve si la casilla tiene un valor fijo o no
+	
 	public boolean isEditable() {
 		return editable;
 	}
 
-	/**
-	 * Establece la opción de editar la casilla
-	 * @param editable True -> editable. False -> no editable
-	 */
+	
+	 // Establece la opcion de editar la casilla
+	
+	 
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}

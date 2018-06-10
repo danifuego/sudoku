@@ -1,4 +1,4 @@
-package app;
+package Paquete;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -154,7 +154,7 @@ public class Interfaz_Tablero extends JFrame {
 		this.separadorVertical2.setOrientation(SwingConstants.VERTICAL);
 		this.separadorVertical2.setForeground (Color.BLUE);
 		this.separadorVertical2.setBackground(Color.BLUE);
-		this.separadorVertical2.setBounds(223, 32, Literales.SEPARADOR_VERTICAL_ANCHO, Literales.SEPARADOR_VERTICAL_LARGO);
+		this.separadorVertical2.setBounds(223, 32, 5, 322);
 		this.contenedor.add(this.separadorVertical2);
 		
 		this.separadorHorizontal1 = new JSeparator();

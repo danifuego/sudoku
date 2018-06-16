@@ -1,4 +1,4 @@
-package Paquete;
+package jo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
  // Clase para trabajar con los ficheros de texto
 
-public class ManejadorFicheros {
+public class FicheroClass {
 
 	/// PROPIEDADES
 	private BufferedReader bufferLectura;
@@ -24,7 +24,7 @@ public class ManejadorFicheros {
 	private String rutaPropiedades;
 	
 	/// CONSTRUCTOR
-	public ManejadorFicheros() {
+	public FicheroClass() {
 		this.bufferLectura		= null;
 		this.bufferEscritura 	= null;
 		this.archivo 			= null;

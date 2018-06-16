@@ -1,4 +1,4 @@
-package Paquete;
+package jo;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -41,7 +41,6 @@ public class Interfaz_Tablero extends JFrame {
 	
 	private JMenuBar menuBar;
 	private JMenu mnArchivo;
-	private JMenu mnAyuda;
 	private JMenuItem mnItemNuevo;
 	private JMenuItem mnItemCargarCSV;
 	private JMenuItem mnItemExportarCSV;
@@ -50,14 +49,14 @@ public class Interfaz_Tablero extends JFrame {
 	
 	private JButton btnSolucionar;
 	private JButton btnLimpiar;
-	
+	JButton btnsalir;
 	private JFileChooser selectorDeFichero;
 	
 	private JLabel lblLogo;
 	
-	private Tablero tablero;
-	private Solucionador solucionador;
-	private ManejadorFicheros manejadorDeFicheros;
+	private EstructuraTablero tablero;
+	private Resultado solucionador;
+	private FicheroClass manejadorDeFicheros;
 	
 	private ActionListener actionNuevo;
 	private ActionListener actionCargarCSV;
@@ -65,21 +64,22 @@ public class Interfaz_Tablero extends JFrame {
 	private ActionListener actionFuncionamiento;
 	private ActionListener actionInfo;
 	private ActionListener actionSolucionar;
+	ActionListener salirapp;
 	
 	private FileNameExtensionFilter filtroExtension;
 	
 	/// CONSTRUCTOR
 	public Interfaz_Tablero() {
 		
-		this.tablero = new Tablero();
+		this.tablero = new EstructuraTablero();
 		tablero.inicializarTablero();
 		
 		this.selectorDeFichero = new JFileChooser();
 		this.filtroExtension = new FileNameExtensionFilter("Archivos CSV", "csv");
 		this.selectorDeFichero.setFileFilter(this.filtroExtension);
 		
-		this.solucionador = new Solucionador();
-		this.manejadorDeFicheros = new ManejadorFicheros();
+		this.solucionador = new Resultado();
+		this.manejadorDeFicheros = new FicheroClass();
 		
 		this.inicializarActionListeners();
 		this.cargarConfiguracionBasica();
@@ -93,32 +93,33 @@ public class Interfaz_Tablero extends JFrame {
 	 */
 	private void cargarConfiguracionBasica() {
 		
-		this.contenedor = new JPanel();
-		this.contenedor.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.contenedor.setLayout(null);
+		contenedor = new JPanel();
+		contenedor.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contenedor.setLayout(null);
+		contenedor.setBackground(Color.orange);
 		
 		
-		this.menuBar = new JMenuBar();
-		this.menuBar.setBounds(0,0, 547, 21);
-		this.contenedor.add(menuBar);
+		menuBar = new JMenuBar();
+		menuBar.setBounds(0,0, 547, 21);
+		contenedor.add(menuBar);
 		
 		
-		this.mnArchivo = new JMenu("Archivo");
-		this.menuBar.add(this.mnArchivo);
+		mnArchivo = new JMenu("Archivo");
+		menuBar.add(this.mnArchivo);
 		
-		this.mnItemNuevo = new JMenuItem("Nuevo");
-		this.mnItemNuevo.addActionListener(this.actionNuevo);
-		this.mnArchivo.add(this.mnItemNuevo);
+		mnItemNuevo = new JMenuItem("Nuevo");
+		mnItemNuevo.addActionListener(this.actionNuevo);
+		mnArchivo.add(this.mnItemNuevo);
 		
-		this.mnArchivo.addSeparator();
+		mnArchivo.addSeparator();
 		
-		this.mnItemCargarCSV = new JMenuItem("Cargar desde CSV");
-		this.mnItemCargarCSV.addActionListener(this.actionCargarCSV);
-		this.mnArchivo.add(this.mnItemCargarCSV);
+		mnItemCargarCSV = new JMenuItem("Cargar desde CSV");
+		mnItemCargarCSV.addActionListener(this.actionCargarCSV);
+		mnArchivo.add(this.mnItemCargarCSV);
 		
-		this.mnItemExportarCSV = new JMenuItem("Exportar a CSV");
-		this.mnItemExportarCSV.addActionListener(this.actionExportarCSV);
-		this.mnArchivo.add(this.mnItemExportarCSV);
+		mnItemExportarCSV = new JMenuItem("Exportar a CSV");
+		mnItemExportarCSV.addActionListener(this.actionExportarCSV);
+		mnArchivo.add(this.mnItemExportarCSV);
 		
 		
 		//textfield del tablero
@@ -170,6 +171,13 @@ public class Interfaz_Tablero extends JFrame {
 		this.contenedor.add(this.separadorHorizontal2);
 		
 		//botones
+		
+		this.btnsalir = new JButton("Salir de la aplicacion");
+		this.setFont(new Font("Tahoma", Font.BOLD, 14));
+		this.btnsalir.setBounds(340, 261, 162,23);
+		this.btnsalir.addActionListener(salirapp);
+		this.contenedor.add(this.btnsalir);
+		
 		this.btnSolucionar = new JButton("Solucionar Sudoku");
 		this.setFont(new Font("Tahoma", Font.BOLD, 14));
 		this.btnSolucionar.setBounds(340, 296, 162, 23);
@@ -254,15 +262,22 @@ public class Interfaz_Tablero extends JFrame {
 		this.actionSolucionar = new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				actualizarCamposTablero();
-				Tablero nuevoTablero = solucionador.solucionarSudoku(tablero);
+				actualizarcasillasTablero();
+				EstructuraTablero nuevoTablero = solucionador.solucionarSudoku(tablero);
 				if (nuevoTablero == null) {
-					mostrarMensajeDeError("SUDOKU NO RESUELTO");
+					mostrarMensajeDeError("el sudoku no es correcto");
 				}
 				else {
 					tablero = nuevoTablero;
 					pintarTablero(tablero.getCasillas());
 				}
+			}
+		};
+		
+		//BOTON Salir de la aplicacion
+		salirapp = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		};
 	}
@@ -271,10 +286,11 @@ public class Interfaz_Tablero extends JFrame {
 	 // Muestra un mensaje de error con interfaz grafica
 	 
 	
-	private void mostrarMensajeDeError(String mensaje) {
+	private void mostrarMensajeDeError(String mensaje) {//metodo para mostrar por pantalla  un mensaje de error
 		
-		JOptionPane.showMessageDialog(this.contenedor, mensaje, "Ocurrio un error", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this.contenedor, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
 	}
+	
 	
 	
 
@@ -289,7 +305,7 @@ public class Interfaz_Tablero extends JFrame {
 				this.casillas[i][j].setText(texto);
 				
 				if (matriz[i][j].isEditable()) {
-					this.casillas[i][j].setForeground(Color.GREEN);
+					this.casillas[i][j].setForeground(Color.BLUE);
 				}
 				else {
 					this.casillas[i][j].setForeground(Color.BLACK);
@@ -311,25 +327,25 @@ public class Interfaz_Tablero extends JFrame {
 		return matriz;
 	}
 	
-	// Actualiza los campos del tablero logico con los insertados y / o modificados por el usuario en la interfaz gráfica.
-	private void actualizarCamposTablero() {
+	// Actualiza los campos del tablero  con los insertados y / o modificados por el usuario en la interfaz gráfica.
+	private void actualizarcasillasTablero() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				String valor = this.casillas[i][j].getText();
-				int valorReal;
-				if (valor.equals("") || valor.equals(" ")) {
-					valorReal = 0;
+				String valor = this.casillas[i][j].getText();//variable de tipo string para comprobar si tiene la casilla espacios o esta vacia 
+				int valorReal;//valor real que tiene o va a tener la casilla
+				if (valor.equals("") || valor.equals(" ")) {//compara si el contenido de la casilla es vacio o tiene un espacio
+					valorReal = 0;//en tal caso el numero de la casilla sera 0 (representa un campo vacio )
 				}
 				else {
-					valorReal = Integer.parseInt(valor);
+					valorReal = Integer.parseInt(valor);//se convierte el valor cogido en la variable "valor" dado que recoge un string
 				}
 				
-				this.tablero.getCasillas()[i][j].setValor(valorReal);
-				if (this.tablero.getCasillas()[i][j].getValor() == 0) {
-					this.tablero.getCasillas()[i][j].setEditable(true);
+				tablero.getCasillas()[i][j].setValor(valorReal);//para darle ese valor conseguido antes a la casilla que este en esa posicion
+				if (this.tablero.getCasillas()[i][j].getValor() == 0) {//si el valor de la casilla es 0 
+					this.tablero.getCasillas()[i][j].setEditable(true);//sera un numero que tiene que sacar el usuario por tanto es editable
 				}
 				else {
-					this.tablero.getCasillas()[i][j].setEditable(false);
+					this.tablero.getCasillas()[i][j].setEditable(false);//sino la casilla no es editable y es un numero precargado
 				}
 			}
 		}

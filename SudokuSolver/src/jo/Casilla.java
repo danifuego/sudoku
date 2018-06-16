@@ -1,15 +1,23 @@
-package Paquete;
+package jo;
 
 
  
  //Esta clase contiene los metodos para poder trabajar con las casillas del tablero
 public class Casilla {
+	
+	//Son las partes del tablero que contendran un 3x3
+	public enum Seccion
+	{
+		PRIMERO, SEGUNDO, TERCERO,
+		CUARTO, QUINTO, SEXTO,
+		SEPTIMO, OCTAVO, NOVENO
+	}
 
 	/// PROPIEDADES
 	private int valor;
 	private int posX;
 	private int posY;
-	private Sector sector;
+	private Seccion sector;
 	private boolean editable;
 	
 	/// CONSTRUCTORES
@@ -17,7 +25,7 @@ public class Casilla {
 	public Casilla() {}
 	
 	
-	public Casilla(int valor, int posX, int posY, Sector sector, boolean editable) {
+	public Casilla(int valor, int posX, int posY, Seccion sector, boolean editable) {
 		
 		this.valor 		= valor;
 		this.posX 		= posX;
@@ -41,17 +49,17 @@ public class Casilla {
 			case 0:
 			case 1:
 			case 2:
-				this.setSector(Sector.PRIMERO);
+				this.setSector(Seccion.PRIMERO);
 				break;
 			case 3:
 			case 4:
 			case 5:
-				this.setSector(Sector.SEGUNDO);
+				this.setSector(Seccion.SEGUNDO);
 				break;
 			case 6:
 			case 7: 
 			case 8:
-				this.setSector(Sector.TERCERO);
+				this.setSector(Seccion.TERCERO);
 				break;
 			default:
 				break;
@@ -64,17 +72,17 @@ public class Casilla {
 			case 0:
 			case 1:
 			case 2:
-				this.setSector(Sector.CUARTO);
+				this.setSector(Seccion.CUARTO);
 				break;
 			case 3:
 			case 4:
 			case 5:
-				this.setSector(Sector.QUINTO);
+				this.setSector(Seccion.QUINTO);
 				break;
 			case 6:
 			case 7: 
 			case 8:
-				this.setSector(Sector.SEXTO);
+				this.setSector(Seccion.SEXTO);
 				break;
 			default:
 				break;
@@ -87,17 +95,17 @@ public class Casilla {
 			case 0:
 			case 1:
 			case 2:
-				this.setSector(Sector.SEPTIMO);
+				this.setSector(Seccion.SEPTIMO);
 				break;
 			case 3:
 			case 4:
 			case 5:
-				this.setSector(Sector.OCTAVO);
+				this.setSector(Seccion.OCTAVO);
 				break;
 			case 6:
 			case 7: 
 			case 8:
-				this.setSector(Sector.NOVENO);
+				this.setSector(Seccion.NOVENO);
 				break;
 			default:
 				break;
@@ -150,14 +158,14 @@ public class Casilla {
 
 	 // Devuelve el sector de la casilla
 	
-	public Sector getSector() {
+	public Seccion getSector() {
 		return sector;
 	}
 
 	
 	 //Establece el sector de la casilla
 	
-	public void setSector(Sector sector) {
+	public void setSector(Seccion sector) {
 		this.sector = sector;
 	}
 

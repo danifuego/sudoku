@@ -1,15 +1,15 @@
-package Paquete;
+package jo;
 
 import java.util.ArrayList;
 
-public class Solucionador {
+public class Resultado {
 	
 	/// METODOS
 	
 	
 	 // Metodo que controla las operaciones necesarias para solucionar el sudoku
 	 
-	public Tablero solucionarSudoku(Tablero tablero) {
+	public EstructuraTablero solucionarSudoku(EstructuraTablero tablero) {
 		
 		ArrayList<Casilla> editables = this.extraerCasillasEditables(tablero.getCasillas());
 		int i = 0;
@@ -90,7 +90,7 @@ public class Solucionador {
 	
 	//ArrayList que contiene tres arrayList de casillas. Fila, columna y sector
 	 
-	private ArrayList<ArrayList<Casilla>> extraerCasillasComparables(Tablero tablero, Casilla actual) {
+	private ArrayList<ArrayList<Casilla>> extraerCasillasComparables(EstructuraTablero tablero, Casilla actual) {
 		
 		ArrayList<Casilla> fila 	= new ArrayList<Casilla>();
 		ArrayList<Casilla> columna 	= new ArrayList<Casilla>();

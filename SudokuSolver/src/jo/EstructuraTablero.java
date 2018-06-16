@@ -1,8 +1,8 @@
-package Paquete;
+package jo;
 
 // contiene la estructura del tablero de Sudoku 
 
-public class Tablero {
+public class EstructuraTablero {
 
 	/// PROPIEDADES 
 	
@@ -13,7 +13,7 @@ public class Tablero {
 	
 	 // Genera un tablero de sudoku basico de 9x9
 	 
-	public Tablero() {
+	public EstructuraTablero() {
 		this.casillas = new Casilla[9][9];
 	}
 	

@@ -1,4 +1,4 @@
-package jo;
+package paquete;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,6 +11,9 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
+/**
+@author Dani Moreno
+*/
 
  // Clase para trabajar con los ficheros de texto
 
@@ -21,7 +24,7 @@ public class FicheroClass {
 	private BufferedWriter bufferEscritura;
 	private File archivo;
 	private Properties propiedades;
-	private String rutaPropiedades;
+	private String rutaConfiguracion;
 	
 	/// CONSTRUCTOR
 	public FicheroClass() {
@@ -29,7 +32,7 @@ public class FicheroClass {
 		this.bufferEscritura 	= null;
 		this.archivo 			= null;
 		this.propiedades 	 	= new Properties();
-		this.rutaPropiedades 	= "conf/config.properties";
+		this.rutaConfiguracion 	= "conf/config.properties";
 		
 	}
 	
@@ -81,7 +84,7 @@ public class FicheroClass {
 		
 		String resultado = "";
 		
-		this.propiedades.load(new FileReader(this.rutaPropiedades));
+		this.propiedades.load(new FileReader(this.rutaConfiguracion));
 		Enumeration<Object> claves = this.propiedades.keys();
 		
 		while (claves.hasMoreElements()) {

@@ -1,6 +1,10 @@
-package jo;
+package paquete;
 
 import java.util.ArrayList;
+
+/**
+@author Dani Moreno
+*/
 
 public class Resultado {
 	

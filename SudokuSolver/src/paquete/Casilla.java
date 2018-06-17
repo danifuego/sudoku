@@ -1,7 +1,10 @@
-package jo;
+package paquete;
 
 
- 
+
+/**
+  @author Dani Moreno
+ */
  //Esta clase contiene los metodos para poder trabajar con las casillas del tablero
 public class Casilla {
 	

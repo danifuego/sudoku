@@ -1,6 +1,7 @@
-package jo;
+package paquete;
 
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,73 +26,74 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
 
+/**
+@author Dani Moreno
+*/
+
 public class Interfaz_Tablero extends JFrame {
 
 	/// PROPIEDADES
 	private JPanel contenedor;
 	
 	
-	private JFormattedTextField[][] casillas = new JFormattedTextField[9][9];
-	private MaskFormatter mascara;
+	 JFormattedTextField[][] casillas = new JFormattedTextField[9][9];
+	 MaskFormatter mascara;
 	
-	private JSeparator separadorHorizontal1;
-	private JSeparator separadorHorizontal2;
-	private JSeparator separadorVertical1;
-	private JSeparator separadorVertical2;
+	 JSeparator separadorHorizontal1;
+	 JSeparator separadorHorizontal2;
+	 JSeparator separadorVertical1;
+	 JSeparator separadorVertical2;
 	
-	private JMenuBar menuBar;
-	private JMenu mnArchivo;
-	private JMenuItem mnItemNuevo;
-	private JMenuItem mnItemCargarCSV;
-	private JMenuItem mnItemExportarCSV;
-	private JMenuItem mnItemFuncionamiento;
-	private JMenuItem mnItemInfo;
+	 JMenuBar submenu;
+	 JMenu opcionarchivo;
+	 JMenuItem opcionnuevotablero;
+	 JMenuItem cargarCSV;
+	 JMenuItem exportarCsv;
 	
-	private JButton btnSolucionar;
-	private JButton btnLimpiar;
-	JButton btnsalir;
-	private JFileChooser selectorDeFichero;
 	
-	private JLabel lblLogo;
+	 JButton btnSolucionar;
+	 JButton btnLimpiar;
+	 JButton btnsalir;
+	 JFileChooser selectorDeFichero;
 	
-	private EstructuraTablero tablero;
-	private Resultado solucionador;
-	private FicheroClass manejadorDeFicheros;
+	 JLabel lblLogo;
 	
-	private ActionListener actionNuevo;
-	private ActionListener actionCargarCSV;
-	private ActionListener actionExportarCSV;
-	private ActionListener actionFuncionamiento;
-	private ActionListener actionInfo;
-	private ActionListener actionSolucionar;
-	ActionListener salirapp;
+	 EstructuraTablero tablero;
+	 Resultado solucionador;
+	 FicheroClass manejadorDeFicheros;
 	
-	private FileNameExtensionFilter filtroExtension;
+	 ActionListener eventonuevo;
+	 ActionListener eventoCargarCSV;
+	 ActionListener eventoExportarCSV;
+	 ActionListener eventoSolucionar;
+	 ActionListener eventosalir;
+	
+	 FileNameExtensionFilter filtroExtension;
 	
 	/// CONSTRUCTOR
 	public Interfaz_Tablero() {
 		
-		this.tablero = new EstructuraTablero();
+		tablero = new EstructuraTablero();
 		tablero.inicializarTablero();
 		
-		this.selectorDeFichero = new JFileChooser();
-		this.filtroExtension = new FileNameExtensionFilter("Archivos CSV", "csv");
-		this.selectorDeFichero.setFileFilter(this.filtroExtension);
+		selectorDeFichero = new JFileChooser();
+		filtroExtension = new FileNameExtensionFilter("Archivos CSV", "csv");//para poner un filtro de extension a la hora de seleccionar un archivo
+		selectorDeFichero.setFileFilter(filtroExtension);
 		
-		this.solucionador = new Resultado();
-		this.manejadorDeFicheros = new FicheroClass();
+		solucionador = new Resultado();
+		manejadorDeFicheros = new FicheroClass();
 		
 		this.inicializarActionListeners();
-		this.cargarConfiguracionBasica();
+		this.cargaelementos();
 		
 	}
 	
 	/// METODOS
 	
-	/**
-	 inicializamos todos los componentes de la interfaz
-	 */
-	private void cargarConfiguracionBasica() {
+	
+	 //inicializamos todos los componentes de la interfaz
+	 
+	private void cargaelementos() {
 		
 		contenedor = new JPanel();
 		contenedor.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -99,31 +101,36 @@ public class Interfaz_Tablero extends JFrame {
 		contenedor.setBackground(Color.orange);
 		
 		
-		menuBar = new JMenuBar();
-		menuBar.setBounds(0,0, 547, 21);
-		contenedor.add(menuBar);
+		submenu = new JMenuBar();
+		submenu.setBounds(0,0, 547, 21);
+		contenedor.add(submenu);
 		
 		
-		mnArchivo = new JMenu("Archivo");
-		menuBar.add(this.mnArchivo);
+		opcionarchivo = new JMenu("Archivo");
+		submenu.add(this.opcionarchivo);
 		
-		mnItemNuevo = new JMenuItem("Nuevo");
-		mnItemNuevo.addActionListener(this.actionNuevo);
-		mnArchivo.add(this.mnItemNuevo);
+		opcionnuevotablero = new JMenuItem("Nuevo");
+		opcionnuevotablero.addActionListener(this.eventonuevo);
+		opcionarchivo.add(this.opcionnuevotablero);
 		
-		mnArchivo.addSeparator();
+		opcionarchivo.addSeparator();
 		
-		mnItemCargarCSV = new JMenuItem("Cargar desde CSV");
-		mnItemCargarCSV.addActionListener(this.actionCargarCSV);
-		mnArchivo.add(this.mnItemCargarCSV);
+		cargarCSV = new JMenuItem("Cargar desde CSV");
+		cargarCSV.addActionListener(this.eventoCargarCSV);
+		opcionarchivo.add(this.cargarCSV);
 		
-		mnItemExportarCSV = new JMenuItem("Exportar a CSV");
-		mnItemExportarCSV.addActionListener(this.actionExportarCSV);
-		mnArchivo.add(this.mnItemExportarCSV);
+		exportarCsv = new JMenuItem("Exportar a CSV");
+		exportarCsv.addActionListener(this.eventoExportarCSV);
+		opcionarchivo.add(this.exportarCsv);
 		
+		ImageIcon imagen = new ImageIcon("C:\\Users\\ravif\\Desktop\\backup proyectop\\sudoku\\SudokuSolver\\sudokusTesteo\\sudoku\\SudokuSolver\\Otros archivos\\img\\logo.jpg");
+		lblLogo = new JLabel();
+		lblLogo.setBounds(350, 30, 170, 170);
+		lblLogo.setIcon(imagen);
+		contenedor.add(this.lblLogo);
 		
 		//textfield del tablero
-		try {
+		try {//esto sirve para solo poder introducir numero dentro de las casillas impediendo asi que salte una excepcion
 			this.mascara = new MaskFormatter("#");
 		} catch (ParseException e) {
 			this.mostrarMensajeDeError(e.getMessage());
@@ -131,64 +138,64 @@ public class Interfaz_Tablero extends JFrame {
 		
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				this.casillas[i][j] = new JFormattedTextField(this.mascara);
-				this.casillas[i][j].setColumns(10);
-				this.casillas[i][j].setBounds(this.calcularPosicionHorizontal(j), this.calcularPosicionVertical(i), 30, 30);
-				this.casillas[i][j].setFont(new Font("Tahoma", Font.PLAIN, 12));
-				this.casillas[i][j].setHorizontalAlignment(JTextField.CENTER);
+				casillas[i][j] = new JFormattedTextField(this.mascara);
+				casillas[i][j].setColumns(10);
+				casillas[i][j].setBounds(this.calcularPosicionHorizontal(j), this.calcularPosicionVertical(i), 30, 30);
+				casillas[i][j].setFont(new Font("Tahoma", Font.PLAIN, 12));
+				casillas[i][j].setHorizontalAlignment(JTextField.CENTER);
 
-				this.contenedor.add(this.casillas[i][j]);
+				contenedor.add(this.casillas[i][j]);
 			}
 		}
 		
 		
 		
 		//separadores
-		this.separadorVertical1 = new JSeparator();
-		this.separadorVertical1.setOrientation(SwingConstants.VERTICAL);
-		this.separadorVertical1.setForeground( Color.BLUE);
-		this.separadorVertical1.setBackground( Color.BLUE);
-		this.separadorVertical1.setBounds(113, 32, 5, 322);
-		this.contenedor.add(this.separadorVertical1);
+		separadorVertical1 = new JSeparator();
+		separadorVertical1.setOrientation(SwingConstants.VERTICAL);
+		separadorVertical1.setForeground( Color.BLUE);
+		separadorVertical1.setBackground( Color.BLUE);
+		separadorVertical1.setBounds(113, 32, 5, 322);
+		contenedor.add(separadorVertical1);
 		
-		this.separadorVertical2 = new JSeparator();
-		this.separadorVertical2.setOrientation(SwingConstants.VERTICAL);
-		this.separadorVertical2.setForeground (Color.BLUE);
-		this.separadorVertical2.setBackground(Color.BLUE);
-		this.separadorVertical2.setBounds(223, 32, 5, 322);
-		this.contenedor.add(this.separadorVertical2);
+		separadorVertical2 = new JSeparator();
+		separadorVertical2.setOrientation(SwingConstants.VERTICAL);
+		separadorVertical2.setForeground (Color.BLUE);
+		separadorVertical2.setBackground(Color.BLUE);
+		separadorVertical2.setBounds(223, 32, 5, 322);
+		contenedor.add(separadorVertical2);
 		
-		this.separadorHorizontal1 = new JSeparator();
-		this.separadorHorizontal1.setForeground(Color.BLUE);
-		this.separadorHorizontal1.setBackground(Color.BLUE);
-		this.separadorHorizontal1.setBounds(10, 137,320, 2);
-		this.contenedor.add(this.separadorHorizontal1);
+		separadorHorizontal1 = new JSeparator();
+		separadorHorizontal1.setForeground(Color.BLUE);
+		separadorHorizontal1.setBackground(Color.BLUE);
+		separadorHorizontal1.setBounds(10, 137,320, 2);
+		contenedor.add(separadorHorizontal1);
 		
-		this.separadorHorizontal2 = new JSeparator();
-		this.separadorHorizontal2.setForeground(Color.BLUE);
-		this.separadorHorizontal2.setBackground(Color.BLUE);
-		this.separadorHorizontal2.setBounds(10, 248, 320, 2);
-		this.contenedor.add(this.separadorHorizontal2);
+		separadorHorizontal2 = new JSeparator();
+		separadorHorizontal2.setForeground(Color.BLUE);
+		separadorHorizontal2.setBackground(Color.BLUE);
+		separadorHorizontal2.setBounds(10, 248, 320, 2);
+		contenedor.add(separadorHorizontal2);
 		
 		//botones
 		
-		this.btnsalir = new JButton("Salir de la aplicacion");
-		this.setFont(new Font("Tahoma", Font.BOLD, 14));
-		this.btnsalir.setBounds(340, 261, 162,23);
-		this.btnsalir.addActionListener(salirapp);
-		this.contenedor.add(this.btnsalir);
+		btnsalir = new JButton("Salir de la aplicacion");
+		setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnsalir.setBounds(340, 261, 162,23);
+		btnsalir.addActionListener(eventosalir);
+		contenedor.add(this.btnsalir);
 		
-		this.btnSolucionar = new JButton("Solucionar Sudoku");
-		this.setFont(new Font("Tahoma", Font.BOLD, 14));
-		this.btnSolucionar.setBounds(340, 296, 162, 23);
-		this.btnSolucionar.addActionListener(this.actionSolucionar);
-		this.contenedor.add(this.btnSolucionar);
+		btnSolucionar = new JButton("Solucionar Sudoku");
+		setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnSolucionar.setBounds(340, 296, 162, 23);
+		btnSolucionar.addActionListener(this.eventoSolucionar);
+		contenedor.add(this.btnSolucionar);
 		
-		this.btnLimpiar = new JButton("Limpiar tablero");
-		this.setFont(new Font("Tahoma", Font.BOLD, 14));
-		this.btnLimpiar.setBounds(340, 331, 162,23);
-		this.btnLimpiar.addActionListener(this.actionNuevo);
-		this.contenedor.add(this.btnLimpiar);
+		btnLimpiar = new JButton("Limpiar tablero");
+		setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnLimpiar.setBounds(340, 331, 162,23);
+		btnLimpiar.addActionListener(this.eventonuevo);
+		contenedor.add(this.btnLimpiar);
 		
 		
 		
@@ -211,7 +218,7 @@ public class Interfaz_Tablero extends JFrame {
 	private void inicializarActionListeners() {
 		
 		// BOTON NUEVO
-		this.actionNuevo = new ActionListener() {
+		this.eventonuevo = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tablero.inicializarTablero();
 				pintarTablero(tablero.getCasillas());
@@ -219,7 +226,7 @@ public class Interfaz_Tablero extends JFrame {
 		};
 		
 		// BOTON CARGAR CSV
-		this.actionCargarCSV = new ActionListener() {
+		this.eventoCargarCSV = new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				
@@ -242,7 +249,7 @@ public class Interfaz_Tablero extends JFrame {
 		};
 		
 		// ACTION EXPORTAR CSV
-		this.actionExportarCSV = new ActionListener() {
+		eventoExportarCSV = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -259,7 +266,7 @@ public class Interfaz_Tablero extends JFrame {
 		};
 			
 		// BOTON SOLUCIONAR
-		this.actionSolucionar = new ActionListener() {
+		eventoSolucionar = new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				actualizarcasillasTablero();
@@ -275,7 +282,7 @@ public class Interfaz_Tablero extends JFrame {
 		};
 		
 		//BOTON Salir de la aplicacion
-		salirapp = new ActionListener() {
+		eventosalir = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}

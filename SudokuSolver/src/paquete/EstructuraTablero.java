@@ -1,4 +1,8 @@
-package jo;
+package paquete;
+
+/**
+@author Dani Moreno
+*/
 
 // contiene la estructura del tablero de Sudoku 
 

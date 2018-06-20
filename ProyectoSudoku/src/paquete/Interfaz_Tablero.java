@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -71,7 +72,7 @@ public class Interfaz_Tablero extends JFrame {
 	 FileNameExtensionFilter filtroExtension;
 	
 	/// CONSTRUCTOR
-	public Interfaz_Tablero() {
+	public Interfaz_Tablero() {//se ejecuta automaticamente al declararlo
 		
 		tablero = new EstructuraTablero();
 		tablero.inicializarTablero();
@@ -95,15 +96,16 @@ public class Interfaz_Tablero extends JFrame {
 	 
 	private void cargaelementos() {
 		
-		contenedor = new JPanel();
-		contenedor.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contenedor.setLayout(null);
-		contenedor.setBackground(Color.orange);
-		
+		JLayeredPane layered = new JLayeredPane();
+		JLabel fondo = new JLabel();
+		ImageIcon fondoimagen = new ImageIcon("C:\\Users\\ravif\\Desktop\\backup proyectop\\sudoku\\SudokuSolver\\sudokusTesteo\\sudoku\\ProyectoSudoku\\Otros archivos\\img\\fondo.jpg");
+		fondo.setIcon(fondoimagen);
+		fondo.setSize(fondoimagen.getIconWidth(), fondoimagen.getIconHeight());
+		layered.add(fondo, new Integer(1));
 		
 		submenu = new JMenuBar();
 		submenu.setBounds(0,0, 547, 21);
-		contenedor.add(submenu);
+		layered.add(submenu,new Integer(2));
 		
 		
 		opcionarchivo = new JMenu("Archivo");
@@ -123,11 +125,15 @@ public class Interfaz_Tablero extends JFrame {
 		exportarCsv.addActionListener(this.eventoExportarCSV);
 		opcionarchivo.add(this.exportarCsv);
 		
-		ImageIcon imagen = new ImageIcon("C:\\Users\\ravif\\Desktop\\backup proyectop\\sudoku\\SudokuSolver\\sudokusTesteo\\sudoku\\SudokuSolver\\Otros archivos\\img\\logo.jpg");
+		ImageIcon imagen = new ImageIcon("..\\ProyectoSudoku\\Otros archivos\\img\\logo.png");
 		lblLogo = new JLabel();
 		lblLogo.setBounds(350, 30, 170, 170);
 		lblLogo.setIcon(imagen);
-		contenedor.add(this.lblLogo);
+		layered.add(lblLogo,new Integer(2));
+		
+		
+		
+		
 		
 		//textfield del tablero
 		try {//esto sirve para solo poder introducir numero dentro de las casillas impediendo asi que salte una excepcion
@@ -144,7 +150,7 @@ public class Interfaz_Tablero extends JFrame {
 				casillas[i][j].setFont(new Font("Tahoma", Font.PLAIN, 12));
 				casillas[i][j].setHorizontalAlignment(JTextField.CENTER);
 
-				contenedor.add(this.casillas[i][j]);
+				layered.add(this.casillas[i][j],new Integer(2));
 			}
 		}
 		
@@ -156,26 +162,26 @@ public class Interfaz_Tablero extends JFrame {
 		separadorVertical1.setForeground( Color.BLUE);
 		separadorVertical1.setBackground( Color.BLUE);
 		separadorVertical1.setBounds(113, 32, 5, 322);
-		contenedor.add(separadorVertical1);
+		layered.add(separadorVertical1,new Integer(2));
 		
 		separadorVertical2 = new JSeparator();
 		separadorVertical2.setOrientation(SwingConstants.VERTICAL);
 		separadorVertical2.setForeground (Color.BLUE);
 		separadorVertical2.setBackground(Color.BLUE);
 		separadorVertical2.setBounds(223, 32, 5, 322);
-		contenedor.add(separadorVertical2);
+		layered.add(separadorVertical2, new Integer (2));
 		
 		separadorHorizontal1 = new JSeparator();
 		separadorHorizontal1.setForeground(Color.BLUE);
 		separadorHorizontal1.setBackground(Color.BLUE);
 		separadorHorizontal1.setBounds(10, 137,320, 2);
-		contenedor.add(separadorHorizontal1);
+		layered.add(separadorHorizontal1, new Integer (2));
 		
 		separadorHorizontal2 = new JSeparator();
 		separadorHorizontal2.setForeground(Color.BLUE);
 		separadorHorizontal2.setBackground(Color.BLUE);
 		separadorHorizontal2.setBounds(10, 248, 320, 2);
-		contenedor.add(separadorHorizontal2);
+		layered.add(separadorHorizontal2, new Integer (2));
 		
 		//botones
 		
@@ -183,19 +189,19 @@ public class Interfaz_Tablero extends JFrame {
 		setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnsalir.setBounds(340, 261, 162,23);
 		btnsalir.addActionListener(eventosalir);
-		contenedor.add(this.btnsalir);
+		layered.add(this.btnsalir, new Integer(3));
 		
 		btnSolucionar = new JButton("Solucionar Sudoku");
 		setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnSolucionar.setBounds(340, 296, 162, 23);
 		btnSolucionar.addActionListener(this.eventoSolucionar);
-		contenedor.add(this.btnSolucionar);
+		layered.add(this.btnSolucionar, new Integer(3));
 		
 		btnLimpiar = new JButton("Limpiar tablero");
 		setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnLimpiar.setBounds(340, 331, 162,23);
 		btnLimpiar.addActionListener(this.eventonuevo);
-		contenedor.add(this.btnLimpiar);
+		layered.add(this.btnLimpiar, new Integer(3));
 		
 		
 		
@@ -203,7 +209,7 @@ public class Interfaz_Tablero extends JFrame {
 		setTitle("Juego del Sudoku");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100,528,405);
-		setContentPane(contenedor);
+		setContentPane(layered);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);

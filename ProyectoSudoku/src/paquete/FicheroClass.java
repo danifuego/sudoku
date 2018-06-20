@@ -80,17 +80,17 @@ public class FicheroClass {
 	 // Devuelve una propiedad del fichero properties
 	
 	 
-	public String leerPropiedad(String miClave) throws IOException {
+	public String leerPropiedad(String miClave) throws IOException {//lee el archivo de configuracion del proyecto 
 		
 		String resultado = "";
 		
-		this.propiedades.load(new FileReader(this.rutaConfiguracion));
-		Enumeration<Object> claves = this.propiedades.keys();
-		
-		while (claves.hasMoreElements()) {
+		this.propiedades.load(new FileReader(this.rutaConfiguracion));//donde se ubica el archivo de configuracion del csv
+		Enumeration<Object> claves = this.propiedades.keys();//
+		//define las reglas que seguiran los archivos CSV
+		while (claves.hasMoreElements()) {//recorre el archivo de configuracion 
 			Object clave = claves.nextElement();
 			if (clave.toString().equals(miClave)) {
-				resultado = this.propiedades.get(clave).toString();
+				resultado = this.propiedades.get(clave).toString();//lo guarda como string
 			}
 		}
 		
@@ -105,11 +105,11 @@ public class FicheroClass {
 		
 		String textoAGuardar = "";
 		
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 9; i++) {//recorre el tablero
 			for (int j = 0; j < 9; j++) {
-				textoAGuardar += String.valueOf(matrizContenido[i][j]);
+				textoAGuardar += String.valueOf(matrizContenido[i][j]);//
 				if (j != 8) {
-					textoAGuardar += ",";
+					textoAGuardar += ",";//va separando las lineas por coma
 				}
 			}
 			textoAGuardar += "\n";

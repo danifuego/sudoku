@@ -31,7 +31,7 @@ public class EstructuraTablero {
 	}
 	
 	
-	public void inicializarTablero() {
+	public void inicializarTablero() {//inicializa el tablero de la interfaz 
 		
 		for (int i = 0; i < this.casillas.length; i++) {
 			for (int j = 0; j < this.casillas[i].length; j++) {
